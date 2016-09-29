@@ -5,6 +5,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.ContentResolver;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -93,7 +94,11 @@ public class MainActivity extends AppCompatActivity {
         String name =ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME;
         String num =ContactsContract.CommonDataKinds.Phone.NUMBER;
         //挑出欄位名稱
-        
+        Cursor c =contentResolver.query(
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI
+                ,new String[]{name,num},null,null,name);
+        //資料表QRERY
+
     }
     public  void txt2(View v){
 
