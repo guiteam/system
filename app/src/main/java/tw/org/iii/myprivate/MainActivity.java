@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
                         ,1);
 
             }
-        tmgr =(TelephonyManager)getSystemService(TELECOM_SERVICE);
+        tmgr =(TelephonyManager)getSystemService(TELEPHONY_SERVICE);
             String linenum = tmgr.getLine1Number();
             String imei =tmgr.getDeviceId();
             String imsi =tmgr.getSubscriberId();
@@ -47,7 +48,15 @@ public class MainActivity extends AppCompatActivity {
 
             Log.d("brad",imei);
             Log.d("brad",imsi);
+            tmgr.listen(new MyPhoneStateListener(), PhoneStateListener.LISTEN_CALL_STATE);
     }}
+    private  class  MyPhoneStateListener extends PhoneStateListener{
+        @Override
+        public void onCallStateChanged(int state, String incomingNumber) {
+            super.onCallStateChanged(state, incomingNumber);
+            
+        }
+    }
     public  void txt1(){
 
     }
