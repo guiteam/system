@@ -54,7 +54,14 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onCallStateChanged(int state, String incomingNumber) {
             super.onCallStateChanged(state, incomingNumber);
-            
+            if(state == TelephonyManager.CALL_STATE_IDLE){
+                //change to idel
+                Log.d("brad","off");
+            }else if(state == TelephonyManager.CALL_STATE_RINGING){
+                Log.d("brad",incomingNumber);
+            }else  if(state== TelephonyManager.CALL_STATE_OFFHOOK){
+                Log.d("brad","talk");
+            }
         }
     }
     public  void txt1(){
