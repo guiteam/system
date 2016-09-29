@@ -3,6 +3,7 @@ package tw.org.iii.myprivate;
 import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.content.ContentResolver;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -84,13 +86,16 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-    public  void txt1(){
+    public  void txt1(View v){
+        ContentResolver contentResolver = getContentResolver();
+        // GET 共用資料
+        
 
     }
-    public  void txt2(){
+    public  void txt2(View v){
 
     }
-    public  void txt3(){
+    public  void txt3(View v){
 
     }
 }
