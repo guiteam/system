@@ -7,6 +7,7 @@ import android.content.ContentResolver;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -89,8 +90,10 @@ public class MainActivity extends AppCompatActivity {
     public  void txt1(View v){
         ContentResolver contentResolver = getContentResolver();
         // GET 共用資料
+        String name =ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME;
+        String num =ContactsContract.CommonDataKinds.Phone.NUMBER;
+        //挑出欄位名稱
         
-
     }
     public  void txt2(View v){
 
