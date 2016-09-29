@@ -1,6 +1,8 @@
 package tw.org.iii.myprivate;
 
 import android.Manifest;
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.util.Log;
 public class MainActivity extends AppCompatActivity {
 
     private TelephonyManager tmgr ;
+    private AccountManager amgr;
             //system sever
 
 
@@ -37,6 +40,13 @@ public class MainActivity extends AppCompatActivity {
                         new String[]{Manifest.permission.READ_SMS}
                         ,1);
 
+            }if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.GET_ACCOUNTS)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.GET_ACCOUNTS}
+                        ,1);
+
             }
         tmgr =(TelephonyManager)getSystemService(TELEPHONY_SERVICE);
             String linenum = tmgr.getLine1Number();
@@ -48,8 +58,18 @@ public class MainActivity extends AppCompatActivity {
 
             Log.d("brad",imei);
             Log.d("brad",imsi);
+
+
+            amgr =(AccountManager)getSystemService(ACCOUNT_SERVICE);
             tmgr.listen(new MyPhoneStateListener(), PhoneStateListener.LISTEN_CALL_STATE);
-    }}
+            Account[] accounts =amgr.getAccounts();
+            for(Account account :accounts){
+                String accountName = account.name;
+                String accountType = account.type;
+                Log.d("brad","accountName"+accountName+"accountType"+accountType);
+            }
+
+        }}
     private  class  MyPhoneStateListener extends PhoneStateListener{
         @Override
         public void onCallStateChanged(int state, String incomingNumber) {
