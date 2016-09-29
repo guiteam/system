@@ -148,4 +148,6 @@ public class MainActivity extends AppCompatActivity {
       String photo = c.getString(c.getColumnIndex(MediaStore.Images.Media.DATA));
         Log.d("brad",photo);
         img.setImageBitmap(BitmapFactory.decodeFile(photo));
+        //縮圖
+        img.setImageURI(Uri.parse(photo));
     }}
