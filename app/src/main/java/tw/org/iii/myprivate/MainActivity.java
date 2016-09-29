@@ -6,10 +6,12 @@ import android.accounts.AccountManager;
 import android.content.ContentResolver;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -17,11 +19,13 @@ import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
 
     private TelephonyManager tmgr ;
     private AccountManager amgr;
+    private ImageView img ;
             //system sever
 
 
@@ -29,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        img=(ImageView)findViewById(R.id.img);
         // Here, thisActivity is the current activity
         if(Build.VERSION.SDK_INT>=23){
         if (ContextCompat.checkSelfPermission(this,
@@ -133,7 +138,14 @@ public class MainActivity extends AppCompatActivity {
             Log.d("brad",dname+dnum+"count"+count);
         }
     }
-    public  void txt3(View v){
+    public  void txt3(View v) {
+        ContentResolver contentResolver = getContentResolver();
+        // GET 共用資料
+        //URI 外部資源的路徑位置
+       Cursor c =contentResolver.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                null, null, null, null);
 
-    }
-}
+      String photo = c.getString(c.getColumnIndex(MediaStore.Images.Media.DATA));
+        Log.d("brad",photo);
+        img.setImageBitmap(BitmapFactory.decodeFile(photo));
+    }}
