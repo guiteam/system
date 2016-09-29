@@ -6,6 +6,7 @@ import android.accounts.AccountManager;
 import android.content.ContentResolver;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -104,16 +105,33 @@ public class MainActivity extends AppCompatActivity {
         Cursor c =contentResolver.query(
                 ContactsContract.CommonDataKinds.Phone.CONTENT_URI
                 ,new String[]{name,num},null,null,name);
+       int count = c.getCount();
         //資料表QRERY
         while (c.moveToNext()){
            String dname = c.getString(c.getColumnIndex(name));
             String dnum = c.getString(c.getColumnIndex(num));
-            Log.d("brad",dname+dnum);
+            Log.d("brad",dname+dnum+"count"+count);
         }
 
     }
     public  void txt2(View v){
+        ContentResolver contentResolver = getContentResolver();
+        // GET 共用資料
 
+        Uri sim = Uri.parse("content://icc/adn");
+        String name =ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME;
+        String num =ContactsContract.CommonDataKinds.Phone.NUMBER;
+        //挑出欄位名稱
+        Cursor c =contentResolver.query(
+                sim
+                ,new String[]{name,num},null,null,name);
+        int count = c.getCount();
+        //資料表QRERY
+        while (c.moveToNext()){
+            String dname = c.getString(c.getColumnIndex(name));
+            String dnum = c.getString(c.getColumnIndex(num));
+            Log.d("brad",dname+dnum+"count"+count);
+        }
     }
     public  void txt3(View v){
 
